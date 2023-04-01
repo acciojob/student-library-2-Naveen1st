@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Table(name="book")
 public class Book {
 
     @Id
@@ -20,7 +21,7 @@ public class Book {
 
     @ManyToOne
     @JoinColumn
-    @JsonIgnoreProperties("books")
+    @JsonIgnoreProperties("booksWritten")
     private Author author;
 
     @ManyToOne
@@ -32,7 +33,7 @@ public class Book {
     @Column(columnDefinition = "TINYINT(1)")
     private boolean available;
 
-    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("book")
     private List<Transaction> transactions;
 
@@ -40,10 +41,11 @@ public class Book {
     }
 
     public Book(String name, Genre genre, Author author) {
+
         this.name = name;
         this.genre = genre;
         this.author = author;
-        this.available = true;
+        this.available=true;
     }
 
     public int getId() {
@@ -70,12 +72,12 @@ public class Book {
         this.genre = genre;
     }
 
-    public boolean isAvailable() {
-        return available;
+    public Author getAuthor() {
+        return author;
     }
 
-    public void setAvailable(boolean available) {
-        this.available = available;
+    public void setAuthor(Author author) {
+        this.author = author;
     }
 
     public Card getCard() {
@@ -86,12 +88,12 @@ public class Book {
         this.card = card;
     }
 
-    public Author getAuthor() {
-        return author;
+    public boolean isAvailable() {
+        return available;
     }
 
-    public void setAuthor(Author author) {
-        this.author = author;
+    public void setAvailable(boolean available) {
+        this.available = available;
     }
 
     public List<Transaction> getTransactions() {
@@ -101,6 +103,4 @@ public class Book {
     public void setTransactions(List<Transaction> transactions) {
         this.transactions = transactions;
     }
-
 }
-

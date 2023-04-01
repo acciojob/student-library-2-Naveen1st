@@ -1,6 +1,7 @@
 package com.driver.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -8,6 +9,7 @@ import java.util.Date;
 import java.util.UUID;
 
 @Entity
+@Table(name="transaction")
 public class Transaction {
 
     @Id
@@ -37,12 +39,42 @@ public class Transaction {
     @CreationTimestamp
     private Date transactionDate;
 
+    public Transaction() {
+    }
+
+    public Transaction(String transactionId, Card card, Book book, int fineAmount,
+                       boolean isIssueOperation, TransactionStatus transactionStatus, Date transactionDate) {
+        this.transactionId = transactionId;
+        this.card = card;
+        this.book = book;
+        this.fineAmount = fineAmount;
+        this.isIssueOperation = isIssueOperation;
+        this.transactionStatus = transactionStatus;
+        this.transactionDate = transactionDate;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getTransactionId() {
         return transactionId;
     }
 
     public void setTransactionId(String transactionId) {
         this.transactionId = transactionId;
+    }
+
+    public Card getCard() {
+        return card;
+    }
+
+    public void setCard(Card card) {
+        this.card = card;
     }
 
     public Book getBook() {
@@ -77,22 +109,6 @@ public class Transaction {
         this.transactionStatus = transactionStatus;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public Card getCard() {
-        return card;
-    }
-
-    public void setCard(Card card) {
-        this.card = card;
-    }
-
     public Date getTransactionDate() {
         return transactionDate;
     }
@@ -101,4 +117,3 @@ public class Transaction {
         this.transactionDate = transactionDate;
     }
 }
-
